@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1;
 
+use App\Http\Controllers\Controller;
 use App\Models\Task;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,9 @@ class TaskController extends Controller
      */
     public function index()
     {
-        //
+       $tasks = Task::all();
+
+       return $tasks;
     }
 
     /**
@@ -34,7 +37,7 @@ class TaskController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Task $task)
+    public function show(string $id)
     {
         //
     }
@@ -42,7 +45,7 @@ class TaskController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Task $task)
+    public function edit(string $id)
     {
         //
     }
@@ -50,7 +53,7 @@ class TaskController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Task $task)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -58,7 +61,7 @@ class TaskController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Task $task)
+    public function destroy(string $id)
     {
         //
     }
