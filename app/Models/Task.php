@@ -11,7 +11,7 @@ class Task extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'is_completed'
+        'name'
     ];
 
 
