@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Api\V1\TaskController;
 use App\Http\Controllers\Api\V1\CompleteTaskController;
 
@@ -17,6 +18,8 @@ Route::prefix('v1')->group(function(){
 Route::prefix('auth')->group(function () {
 
     Route::post('/login', LoginController::class);
+
+    Route::post('/logout', LogoutController::class);
     
 });
 
