@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
@@ -27,6 +27,10 @@ class LoginController extends Controller
             ]);
         }
 
-        return response()->json(['message' => 'Login successful'], 200);
+        return response()->json([
+            'message' => 'Login successful',
+            'token' => $user->createToken('laravel_api_token')->plainTextToken,
+            'user' => $user
+        ], 200);
     }
 }
