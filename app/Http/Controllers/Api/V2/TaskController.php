@@ -16,8 +16,10 @@ class TaskController extends Controller
      */
     public function index()
     {
-       
-       return TaskResource::collection(auth()->user()->tasks()->get());
+        
+        Gate::authorize('viewAny', Task::class);
+
+        return TaskResource::collection(auth()->user()->tasks()->get());
 
     }
 
@@ -34,9 +36,17 @@ class TaskController extends Controller
      */
     public function store(StoreTaskRequest $request)
     {
-       $task = $request->user->tasks()->create($request->validated());
+        if($request->user()->cannot('create', Task::class))
+        {
 
-       return TaskResource::make($task);
+            abort('403', 'This is unauthorized action');
+
+        }
+
+        $task = $request->user->tasks()->create($request->validated());
+
+        return TaskResource::make($task);
+
     }
 
     /**
@@ -56,6 +66,13 @@ class TaskController extends Controller
      */
     public function update(StoreTaskRequest $request, Task $task)
     {
+        if($request->user()->cannot('update', $task))
+        {
+
+            abort('403', 'This is unauthorized action');
+
+        }
+
         $task->update($request->validated());
 
         return TaskResource::make($task);
@@ -67,6 +84,13 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
+        if(request()->user()->cannot('delete', $task))
+        {
+
+            abort('403', 'This is unauthorized action');
+
+        }
+
         $task->delete();
 
         return response()->noContent();
