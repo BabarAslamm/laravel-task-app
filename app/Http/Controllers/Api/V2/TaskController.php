@@ -16,7 +16,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        
+
         Gate::authorize('viewAny', Task::class);
 
         return TaskResource::collection(auth()->user()->tasks()->get());
@@ -43,7 +43,7 @@ class TaskController extends Controller
 
         }
 
-        $task = $request->user->tasks()->create($request->validated());
+        $task = $request->user()->tasks()->create($request->validated());
 
         return TaskResource::make($task);
 
